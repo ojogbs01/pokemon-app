@@ -1,0 +1,29 @@
+import logo from "../../assets/images/logo.png";
+import filter from "../../assets/images/filter.png";
+import search from "../../assets/images/search.png";
+import styles from "./Navbar.module.css";
+
+function Navbar() {
+	return (
+		<header className={styles.navbar}>
+			<div className={styles.left}>
+				<img src={logo} alt="Pokedex logo" className={styles.logo} />
+				<h1>Pokédex</h1>
+			</div>
+			<div className={styles.right}>
+				<div className={styles["search-container"]}>
+					<input
+						type="search"
+						name="query"
+						placeholder="Search Pokemon by name or number..."
+						className={styles.input}
+					/>
+					<img src={search} alt="Search icon" className={styles["search-icon"]} />
+				</div>
+				<img src={filter} alt="Filter icon" className={styles.icon} />
+			</div>
+		</header>
+	);
+}
+
+export default Navbar;
