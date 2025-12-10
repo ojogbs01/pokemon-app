@@ -9,7 +9,7 @@ function PokemonCard(props) {
 			/>
 			<p>{props.id}</p>
 			<p>{props.name}</p>
-			<p>Type: </p>
+			<p>{props.types ? props.types.join(", ") : "Loading..."}</p>
 		</div>
 	);
 }
