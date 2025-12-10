@@ -1,14 +1,16 @@
+import PokemonCard from "../PokemonCard/PokemonCard";
+import styles from "./Body.module.css";
 import { useState, useEffect } from "react";
 
 function Body() {
-	const [data, setData] = useState([]);
+	const [pokemonList, setPokemonList] = useState([]);
 
 	useEffect(() => {
 		const fetchPokemon = async () => {
 			try {
 				const reponse = await fetch("https://pokeapi.co/api/v2/pokemon/");
 				const result = await reponse.json();
-				setData(result.results);
+				setPokemonList(result.results);
 				console.log(result.results); //data will update on next render so can't log it here
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -19,11 +21,11 @@ function Body() {
 
 	return (
 		<>
-			<ul>
-				{data.map((pokemon, index) => (
-					<li key={index}>{pokemon.name}</li>
+			<main>
+				{pokemonList.map((pokemon, index) => (
+					<PokemonCard name={pokemon.name} key={index} id={index + 1} />
 				))}
-			</ul>
+			</main>
 		</>
 	);
 }
