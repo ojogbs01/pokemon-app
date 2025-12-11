@@ -1,10 +1,55 @@
 .card {
-    outline: auto;
-    width: 300px;
+    width: 200px;
     display: flex; /* Why again? */
     flex-direction: column;
     align-items: center;
     padding: 20px;
     border-radius: 16px;
-    background-color: antiquewhite;
+    background-color: rgb(255, 254, 252);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    /* Add smooth transitions for transform and shadow */
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    will-change: transform, box-shadow; /* performance hint */
+
+}
+
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+
+p::first-letter {
+    text-transform: capitalize;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 20px;;
+}
+
+.sprite {
+    height: auto;
+}
+
+.id {
+    text-align: left;
+    align-self: flex-start;
+    color: rgb(190, 190, 190);
+}
+
+.types {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.type {
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 12px;
+    padding: 2px 8px;
 }
