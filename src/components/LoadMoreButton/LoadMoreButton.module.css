@@ -1,0 +1,18 @@
+.loadmore {
+    display: block;
+    margin: 32px auto 32px auto; /* centers the button horizontally */
+    padding: 12px 32px;
+    border-radius: 12px;
+    background-color: #ec4074;
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.loadmore:hover {
+    background-color: #d81b60;
+    transform: translateY(-2px) scale(1.03);
+}
