@@ -1,9 +1,9 @@
-import Body from "../components/Body/Body";
+import PokemonGrid from "../components/PokemonGrid/PokemonGrid";
 
 function HomePage() {
 	return (
 		<>
-			<Body />
+			<PokemonGrid />
 		</>
 	);
 }

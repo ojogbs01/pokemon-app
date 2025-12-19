@@ -1,10 +1,10 @@
 import PokemonCard from "../PokemonCard/PokemonCard";
 import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
-import styles from "./Body.module.css";
+import styles from "./PokemonGrid.module.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Body() {
+function PokemonGrid() {
 	const [pokemonList, setPokemonList] = useState([]);
 	const [pokemonWithSprite, setPokemonWithSprite] = useState([]);
 
@@ -56,7 +56,7 @@ function Body() {
 		<>
 			<main>
 				{pokemonWithSprite.map((pokemon, index) => (
-					<Link to={`/pokemon/${index + 1}`} className={styles.cardLink}>
+					<Link to={`/pokemon/${index + 1}`} className={styles.cardLink} key={index + 1}>
 						<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />
 					</Link>
 				))}
@@ -66,4 +66,4 @@ function Body() {
 	);
 }
 
-export default Body;
+export default PokemonGrid;

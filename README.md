@@ -42,7 +42,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## Project Structure
 
-- `src/components/` — React components (Navbar, Body, PokemonCard, etc.)
+- `src/components/` — React components (Navbar, PokemonGrid, PokemonCard, etc.)
 - `src/assets/` — Images and static assets
 - `src/index.css` — Global styles
 - `public/` — Static files
