@@ -56,7 +56,7 @@ function Body() {
 		<>
 			<main>
 				{pokemonWithSprite.map((pokemon, index) => (
-					<Link to="/pokemon" className={styles.cardLink}>
+					<Link to={`/pokemon/${index + 1}`} className={styles.cardLink}>
 						<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />
 					</Link>
 				))}

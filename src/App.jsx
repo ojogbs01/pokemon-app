@@ -11,7 +11,7 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route path="/" element={<HomePage />} />
-					<Route path="/pokemon" element={<PokemonPage />} />
+					<Route path="/pokemon/:id" element={<PokemonPage />} />
 					<Route path="*" element={<h1>Page Not Found!</h1>} />
 				</Routes>
 				<Footer />
