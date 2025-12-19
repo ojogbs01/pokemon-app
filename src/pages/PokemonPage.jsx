@@ -1,7 +1,9 @@
+import PokemonDetails from "../components/PokemonDetails/PokemonDetails";
+
 function PokemonPage() {
 	return (
 		<>
-			<h1>Pokemon Details</h1>
+			<PokemonDetails />
 		</>
 	);
 }
