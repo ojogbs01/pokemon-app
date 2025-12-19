@@ -2,14 +2,18 @@ import logo from "../../assets/images/logo.png";
 import filter from "../../assets/images/filter.png";
 import search from "../../assets/images/search.png";
 import styles from "./Navbar.module.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
 	return (
 		<header className={styles.navbar}>
-			<div className={styles.left}>
-				<img src={logo} alt="Pokedex logo" className={styles.logo} />
-				<h1>Pokédex</h1>
-			</div>
+			<Link to="/" className={styles.leftLink}>
+				<div className={styles.left}>
+					<img src={logo} alt="Pokedex logo" className={styles.logo} />
+					<h1>Pokédex</h1>
+				</div>
+			</Link>
+
 			<div className={styles.right}>
 				<div className={styles["search-container"]}>
 					<input

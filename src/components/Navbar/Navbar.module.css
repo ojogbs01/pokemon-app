@@ -53,3 +53,9 @@
     width: auto;
     cursor: pointer;
 }
+
+.leftLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

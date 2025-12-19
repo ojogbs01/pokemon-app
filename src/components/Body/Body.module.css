@@ -12,3 +12,9 @@ body {
     background-color: #f7f8fc;
 
 }
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}

@@ -1,13 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
-import Body from "./components/Body/Body";
 import Footer from "./components/Footer/Footer";
+import Home from "./pages/Home";
+import Details from "./pages/Details";
 
 function App() {
 	return (
 		<>
-			<Navbar />
-			<Body />
-			<Footer />
+			<Router>
+				<Navbar />
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/details" element={<Details />} />
+					<Route path="*" element={<h1>Page Not Found!</h1>} />
+				</Routes>
+				<Footer />
+			</Router>
 		</>
 	);
 }

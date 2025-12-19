@@ -2,6 +2,7 @@ import PokemonCard from "../PokemonCard/PokemonCard";
 import LoadMoreButton from "../LoadMoreButton/LoadMoreButton";
 import styles from "./Body.module.css";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Body() {
 	const [pokemonList, setPokemonList] = useState([]);
@@ -55,7 +56,9 @@ function Body() {
 		<>
 			<main>
 				{pokemonWithSprite.map((pokemon, index) => (
-					<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />
+					<Link to="/details" className={styles.cardLink}>
+						<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />
+					</Link>
 				))}
 			</main>
 			<LoadMoreButton onClick={loadMore} />
