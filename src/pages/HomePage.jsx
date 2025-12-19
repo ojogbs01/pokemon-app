@@ -1,6 +1,6 @@
 import Body from "../components/Body/Body";
 
-function Home() {
+function HomePage() {
 	return (
 		<>
 			<Body />
@@ -8,4 +8,4 @@ function Home() {
 	);
 }
 
-export default Home;
+export default HomePage;

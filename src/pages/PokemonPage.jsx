@@ -1,4 +1,4 @@
-function Details() {
+function PokemonPage() {
 	return (
 		<>
 			<h1>Pokemon Details</h1>
@@ -6,4 +6,4 @@ function Details() {
 	);
 }
 
-export default Details;
+export default PokemonPage;

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Home from "./pages/Home";
-import Details from "./pages/Details";
+import HomePage from "./pages/HomePage";
+import PokemonPage from "./pages/PokemonPage";
 
 function App() {
 	return (
@@ -10,8 +10,8 @@ function App() {
 			<Router>
 				<Navbar />
 				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/details" element={<Details />} />
+					<Route path="/" element={<HomePage />} />
+					<Route path="/pokemon" element={<PokemonPage />} />
 					<Route path="*" element={<h1>Page Not Found!</h1>} />
 				</Routes>
 				<Footer />
