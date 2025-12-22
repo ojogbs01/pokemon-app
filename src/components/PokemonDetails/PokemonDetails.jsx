@@ -27,6 +27,7 @@ function PokemonDetails() {
 	const { id } = useParams();
 	const [pokemonData, setPokemonData] = useState([]);
 	const [description, setDescription] = useState();
+	const [evolutionUrl, setEvolutionUrl] = useState();
 	const [evolutions, setEvolutions] = useState([]);
 
 	const fetchData = async () => {
@@ -45,16 +46,33 @@ function PokemonDetails() {
 			const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
 			const result = await reponse.json();
 			setDescription(result.flavor_text_entries[1].flavor_text);
-			console.log("fetchDescription: ", result.flavor_text_entries[1].flavor_text);
+			console.log("fetchDescription: ", result);
+			setEvolutionUrl(result.evolution_chain.url);
+			console.log("fetchEvolutionUrl: ", result.evolution_chain.url);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
 	};
 
 	const fetchEvolutions = async () => {
+		//Copilot code
 		try {
+			const response = await fetch(evolutionUrl);
+			const result = await response.json();
+
+			// Flatten the evolution chain
+			const evolutionsArray = [];
+			let current = result.chain;
+
+			while (current) {
+				evolutionsArray.push(current.species);
+				current = current.evolves_to[0]; // follow first branch
+			}
+
+			setEvolutions(evolutionsArray);
+			console.log("Evolutions:", evolutionsArray);
 		} catch (error) {
-			console.error("Error fetching data:", error);
+			console.error("Error fetching evolutions:", error);
 		}
 	};
 
@@ -62,6 +80,12 @@ function PokemonDetails() {
 		fetchData();
 		fetchDescription();
 	}, []);
+
+	useEffect(() => {
+		if (evolutionUrl) {
+			fetchEvolutions();
+		}
+	}, [evolutionUrl]);
 
 	return (
 		<div className={styles.card}>
@@ -148,31 +172,27 @@ function PokemonDetails() {
 					</p>
 				</div>
 			</div>
+
 			<div className={styles.evolutions}>
-				<div className={styles.evolutionOne}>
-					<p className={styles.evolutionName}>Bulbasaur</p>
-					<img
-						className={styles.evolutionSprite}
-						alt="Pokemon Evolution Sprite"
-						src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-					/>
-				</div>
-				<div className={styles.evolutionTwo}>
-					<p className={styles.evolutionName}>Ivysaur</p>
-					<img
-						className={styles.evolutionSprite}
-						alt="Pokemon Evolution Sprite"
-						src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"
-					/>
-				</div>
-				<div className={styles.evolutionThree}>
-					<p className={styles.evolutionName}>Venusaur</p>
-					<img
-						className={styles.evolutionSprite}
-						alt="Pokemon Evolution Sprite"
-						src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png"
-					/>
-				</div>
+				{/* Copilot code */}
+				{evolutions.length > 0 ? (
+					evolutions.map((evo, idx) => {
+						// Extract ID from species URL
+						const id = evo.url.split("/").filter(Boolean).pop();
+						return (
+							<div key={idx} className={styles.evolutionCard}>
+								<p className={styles.evolutionName}>{evo.name}</p>
+								<img
+									className={styles.evolutionSprite}
+									alt={`${evo.name} Sprite`}
+									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+								/>
+							</div>
+						);
+					})
+				) : (
+					<p>Loading evolutions...</p>
+				)}
 			</div>
 		</div>
 	);
