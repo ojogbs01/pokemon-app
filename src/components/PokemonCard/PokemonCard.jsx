@@ -27,7 +27,7 @@ function PokemonCard(props) {
 			<p className={styles.id}>#{props.id}</p>
 			<img
 				className={styles.sprite}
-				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`}
+				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.id}.png`}
 				alt="Pokemon Sprite"
 			/>
 			<p className={styles.name}>{props.name}</p>

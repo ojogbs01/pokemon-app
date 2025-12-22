@@ -32,7 +32,7 @@ p::first-letter {
 }
 
 .sprite {
-    height: auto;
+    width: 150px;
 }
 
 .id {
