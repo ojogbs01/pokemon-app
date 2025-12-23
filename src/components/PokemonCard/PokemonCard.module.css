@@ -1,55 +1,69 @@
+
 .card {
-    width: 250px;
-    display: flex; /* Why again? */
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-radius: 16px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
-    /* Add smooth transitions for transform and shadow */
-    transition: transform 200ms ease, box-shadow 200ms ease;
-    will-change: transform, box-shadow; /* performance hint */
-
+  width: 250px;                 /* fixed card width on larger screens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  will-change: transform, box-shadow;
 }
-
 
 .card:hover {
   transform: translateY(-4px) scale(1.02);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
 }
 
-
 p::first-letter {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .name {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 20px;;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .sprite {
-    width: 150px;
+  width: 150px;
 }
 
 .id {
-    text-align: left;
-    align-self: flex-start;
-    color: rgb(190, 190, 190);
+  text-align: left;
+  align-self: flex-start;
+  color: rgb(190, 190, 190);
 }
 
 .types {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .type {
-    text-transform: uppercase;
-    font-weight: bold;
-    border-radius: 12px;
-    padding: 2px 8px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 2px 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .card {
+    width: 160px;             /* match the basis in pokemongrid.module.css */
+    padding: 10px;
+    margin: 0 auto;           /* keep centered within the anchor */
+  }
+
+  .sprite {
+    width: 70px;
+  }
+
+  .name {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
 }

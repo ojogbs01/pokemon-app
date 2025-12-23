@@ -54,7 +54,7 @@ function PokemonGrid() {
 
 	return (
 		<>
-			<main>
+			<main className={styles.main}>
 				{pokemonWithSprite.map((pokemon, index) => (
 					<Link to={`/pokemon/${index + 1}`} className={styles.cardLink} key={index + 1}>
 						<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />

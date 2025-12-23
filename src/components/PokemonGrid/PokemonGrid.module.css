@@ -1,20 +1,46 @@
-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 30px 0;
-    max-width: 1500px;
-    margin: 50px auto;
+
+/* Main container (apply via className={styles.main}) */
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;           /* row + column spacing */
+  padding: 30px 0;
+  max-width: 1500px;
+  margin: 50px auto;
 }
 
-body {
-    background-color: #f7f8fc;
-
-}
-
+/* The anchor wrapping each card */
 .cardLink {
   text-decoration: none;
   color: inherit;
   display: block;
+
+  /* Do not allow the anchor to stretch; size is based on its content (.card) */
+  flex: 0 0 auto;
+}
+
+/* Responsive styles */
+@media (max-width: 900px) {
+  .main {
+    gap: 18px;
+    padding: 20px 0;
+    max-width: 98vw;
+    margin: 24px auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    gap: 16px;
+    padding: 10px 0;
+    max-width: 100vw;
+    margin: 10px auto;
+    justify-content: center;
+  }
+
+  /* Enforce ~2 per row by giving each item a ~160px basis; gap handles spacing */
+  .cardLink {
+    flex: 0 1 160px;
+  }
 }
