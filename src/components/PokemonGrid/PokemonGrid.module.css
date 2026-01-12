@@ -1,46 +1,57 @@
-
-/* Main container (apply via className={styles.main}) */
 .main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;           /* row + column spacing */
-  padding: 30px 0;
-  max-width: 1500px;
+  display: grid;
+  gap: 24px;
+  padding: 30px clamp(16px, 4vw, 48px);
+  max-width: 1200px;
   margin: 50px auto;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* The anchor wrapping each card */
 .cardLink {
   text-decoration: none;
   color: inherit;
   display: block;
-
-  /* Do not allow the anchor to stretch; size is based on its content (.card) */
-  flex: 0 0 auto;
 }
 
-/* Responsive styles */
+@media (max-width: 1024px) {
+  .main {
+    gap: 22px;
+    padding: 26px clamp(14px, 4vw, 40px);
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .main {
+    gap: 20px;
+    padding: 22px clamp(12px, 4vw, 32px);
+    max-width: 94vw;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
     gap: 18px;
-    padding: 20px 0;
-    max-width: 98vw;
-    margin: 24px auto;
+    padding: 20px clamp(12px, 4vw, 28px);
+    max-width: 96vw;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
 @media (max-width: 600px) {
   .main {
     gap: 16px;
-    padding: 10px 0;
-    max-width: 100vw;
-    margin: 10px auto;
-    justify-content: center;
+    padding: 16px clamp(10px, 5vw, 24px);
+    max-width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-
-  /* Enforce ~2 per row by giving each item a ~160px basis; gap handles spacing */
-  .cardLink {
-    flex: 0 1 160px;
+}
+@media (max-width: 380px) {
+  .main {
+    gap: 14px;
+    padding: 14px clamp(8px, 6vw, 20px);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
