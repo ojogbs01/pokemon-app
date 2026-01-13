@@ -29,6 +29,7 @@ function PokemonDetails() {
 	const [description, setDescription] = useState();
 	const [evolutionUrl, setEvolutionUrl] = useState();
 	const [evolutions, setEvolutions] = useState([]);
+	const [genderRate, setGenderRate] = useState();
 
 	const fetchData = async () => {
 		try {
@@ -41,7 +42,7 @@ function PokemonDetails() {
 		}
 	};
 
-	const fetchDescription = async () => {
+	const fetchExtras = async () => {
 		try {
 			const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
 			const result = await reponse.json();
@@ -49,6 +50,8 @@ function PokemonDetails() {
 			console.log("fetchDescription: ", result);
 			setEvolutionUrl(result.evolution_chain.url);
 			console.log("fetchEvolutionUrl: ", result.evolution_chain.url);
+			setGenderRate(result.gender_rate);
+			console.log("gender rate: ", result.gender_rate);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
@@ -78,7 +81,7 @@ function PokemonDetails() {
 
 	useEffect(() => {
 		fetchData();
-		fetchDescription();
+		fetchExtras();
 	}, []);
 
 	useEffect(() => {
@@ -131,7 +134,9 @@ function PokemonDetails() {
 				</div>
 				<div className={styles.gender}>
 					<p className={styles.vitalText}>Gender</p>
-					<p className={styles.vitalBox}>F M*</p>
+					<p className={styles.vitalBox}>
+						{genderRate === -1 ? "Genderless" : `F ${genderRate * 12.5}%  |  M ${100 - genderRate * 12.5}%`}
+					</p>
 				</div>
 			</div>
 			<div className={styles.stats}>
