@@ -1,5 +1,5 @@
 import styles from "./PokemonDetails.module.css";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const typeStyles = {
@@ -82,7 +82,8 @@ function PokemonDetails() {
 	useEffect(() => {
 		fetchData();
 		fetchExtras();
-	}, []);
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	}, [id]);
 
 	useEffect(() => {
 		if (evolutionUrl) {
@@ -112,92 +113,129 @@ function PokemonDetails() {
 			</div>
 			<p className={styles.description}>{description}</p>
 			<div className={styles.abilities}>
-				<p>Abilities</p>
+				<p className={styles.abilitiesTitle}>Abilities</p>
+
 				{pokemonData.abilities ? (
-					pokemonData.abilities.map((ability, idx) => (
-						<p className={styles.ability} key={idx}>
-							{ability.ability.name}
-						</p>
-					))
+					<div className={styles.abilityRow}>
+						{pokemonData.abilities.map((ability, idx) => (
+							<span className={styles.ability} key={idx} title={ability.ability.name}>
+								{ability.ability.name}
+							</span>
+						))}
+					</div>
 				) : (
 					<p>Loading...</p>
 				)}
 			</div>
+
 			<div className={styles.vitals}>
-				<div className={styles.height}>
-					<p className={styles.vitalText}>Height</p>
-					<p className={styles.vitalBox}>{pokemonData.height}</p>
+				<div className={styles.vital}>
+					<p className={styles.vitalText}>HEIGHT</p>
+					<div className={styles.vitalPill}>
+						{/* If you convert decimeters to meters: (pokemonData.height / 10).toFixed(1) + 'm' */}
+						{pokemonData.height ? `${(pokemonData.height / 10).toFixed(1)}m` : "—"}
+					</div>
 				</div>
-				<div className={styles.weight}>
-					<p className={styles.vitalText}>Weight</p>
-					<p className={styles.vitalBox}>{pokemonData.weight}</p>
+				<div className={styles.vital}>
+					<p className={styles.vitalText}>WEIGHT</p>
+					<div className={styles.vitalPill}>
+						{/* If you convert hectograms to kg: (pokemonData.weight / 10).toFixed(1) + 'Kg' */}
+						{pokemonData.weight ? `${(pokemonData.weight / 10).toFixed(1)}Kg` : "—"}
+					</div>
 				</div>
-				<div className={styles.gender}>
-					<p className={styles.vitalText}>Gender</p>
-					<p className={styles.vitalBox}>
-						{genderRate === -1 ? "Genderless" : `F ${genderRate * 12.5}%  |  M ${100 - genderRate * 12.5}%`}
-					</p>
-				</div>
-			</div>
-			<div className={styles.stats}>
-				<div className={styles.hp}>
-					<p className={styles.statsText}>HP</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[0]?.base_stat : "Loading..."}
-					</p>
-				</div>
-				<div className={styles.attack}>
-					<p className={styles.statsText}>ATK</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[1]?.base_stat : "Loading..."}
-					</p>
-				</div>
-				<div className={styles.defense}>
-					<p className={styles.statsText}>DEF</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[2]?.base_stat : "Loading..."}
-					</p>
-				</div>
-				<div className={styles.specialattack}>
-					<p className={styles.statsText}>SpA</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[3]?.base_stat : "Loading..."}
-					</p>
-				</div>
-				<div className={styles.specialdefense}>
-					<p className={styles.statsText}>SpD</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[4]?.base_stat : "Loading..."}
-					</p>
-				</div>
-				<div className={styles.speed}>
-					<p className={styles.statsText}>SPD</p>
-					<p className={styles.statsBox}>
-						{pokemonData.stats ? pokemonData.stats[5]?.base_stat : "Loading..."}
-					</p>
+				<div className={styles.vital}>
+					<p className={styles.vitalText}>GENDER</p>
+					<div className={styles.genderRow}>
+						{genderRate === -1 ? (
+							<span className={styles.genderLabel}>Genderless</span>
+						) : (
+							<>
+								<div className={styles.genderWithPercent}>
+									<div className={`${styles.genderIcon} ${styles.genderMale}`}>
+										<span className={styles.genderGlyph}>♂</span>
+									</div>
+									<span className={styles.genderPercent}>
+										{(100 - genderRate * 12.5).toFixed(1)}%
+									</span>
+								</div>
+
+								<div className={styles.genderWithPercent}>
+									<div className={`${styles.genderIcon} ${styles.genderFemale}`}>
+										<span className={styles.genderGlyph}>♀</span>
+									</div>
+									<span className={styles.genderPercent}>{(genderRate * 12.5).toFixed(1)}%</span>
+								</div>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 
-			<div className={styles.evolutions}>
-				{/* Copilot code */}
-				{evolutions.length > 0 ? (
-					evolutions.map((evo, idx) => {
-						// Extract ID from species URL
-						const id = evo.url.split("/").filter(Boolean).pop();
-						return (
-							<div key={idx} className={styles.evolutionCard}>
-								<p className={styles.evolutionName}>{evo.name}</p>
-								<img
-									className={styles.evolutionSprite}
-									alt={`${evo.name} Sprite`}
-									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
-								/>
-							</div>
-						);
-					})
-				) : (
-					<p>Loading evolutions...</p>
-				)}
+			<div>
+				<p className={styles.vitalText}>STATS</p>
+				<div className={styles.stats}>
+					{pokemonData.stats ? (
+						<>
+							{[
+								{ key: "hp", label: "HP", value: pokemonData.stats[0]?.base_stat },
+								{ key: "attack", label: "ATK", value: pokemonData.stats[1]?.base_stat },
+								{ key: "defense", label: "DEF", value: pokemonData.stats[2]?.base_stat },
+								{ key: "special-attack", label: "SpA", value: pokemonData.stats[3]?.base_stat },
+								{ key: "special-defense", label: "SpD", value: pokemonData.stats[4]?.base_stat },
+								{ key: "speed", label: "SPD", value: pokemonData.stats[5]?.base_stat },
+							].map((s, idx) => (
+								<div
+									key={idx}
+									className={`${styles.statPill} ${styles[`stat_${s.key.replace("-", "")}`]}`}
+								>
+									<span className={styles.statBadge}>{s.label}</span>
+									<span className={styles.statValue}>{s.value ?? "—"}</span>
+								</div>
+							))}
+						</>
+					) : (
+						<p>Loading...</p>
+					)}
+				</div>
+			</div>
+
+			<div>
+				<p className={styles.vitalText}>EVOLUTIONS</p>
+				<div className={styles.evolutions}>
+					{evolutions.length > 0 ? (
+						<div className={styles.evolutionRow}>
+							{evolutions.map((evo, idx) => {
+								// Extract ID from species URL
+								const evoId = evo.url.split("/").filter(Boolean).pop();
+								const imgSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evoId}.png`;
+
+								return (
+									<>
+										<Link to={`/pokemon/${evoId}`} key={idx} className={styles.cardLink}>
+											<div key={idx} className={styles.evolutionCard}>
+												<img
+													className={styles.evolutionImg}
+													alt={`${evo.name} Sprite`}
+													src={imgSrc}
+													loading="lazy"
+												/>
+												<p className={styles.evolutionName}>{evo.name}</p>
+											</div>
+										</Link>
+
+										{idx < evolutions.length - 1 && (
+											<span className={styles.evolutionArrow} aria-label="evolves to">
+												→
+											</span>
+										)}
+									</>
+								);
+							})}
+						</div>
+					) : (
+						<p>Loading evolutions...</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);

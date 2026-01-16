@@ -8,6 +8,7 @@
     border-radius: 20px;
     background-color: #fff;
     box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    gap: 32px; /* add gap between direct children */
 }
 
 .sprite {
@@ -26,7 +27,7 @@
 .name {
     font-weight: bold;
     font-size: 2rem;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
     text-align: center;
 }
 
@@ -34,7 +35,7 @@
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
 }
 
 .type {
@@ -48,178 +49,293 @@
 }
 
 .description {
-    margin: 16px 0;
+    margin: 4px 0 0 0;
     color: #444;
     font-size: 1.05rem;
     text-align: center;
 }
 
 .abilities {
-    margin: 16px 0 8px 0;
+    margin: 32px 0 16px 0;
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .ability {
-    display: inline-block;
-    background: #f3e5f5;
-    color: #6a1b9a;
-    border-radius: 8px;
-    padding: 2px 10px;
-    margin-right: 8px;
-    margin-bottom: 4px;
-    font-weight: 500;
-    font-size: 0.98rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;          /* keep each pill on one line */
+    background: #eef2ff;          /* soft indigo-tinted bg */
+    color: #273469;               /* readable dark indigo */
+    border: 1px solid #d7ddff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: capitalize;   /* e.g., "static" -> "Static" */
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
 }
+
+
+.abilitiesTitle {
+    font-weight: 700;
+    color: #0f172a;              /* deep navy for headings */
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+
+/* Single-line row that scrolls horizontally if overflowing */
+.abilityRow {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;           /* prevent wrapping to new line */
+    overflow-x: auto;            /* enable horizontal scroll when needed */
+    padding: 4px 4px 8px;        /* bottom space for scrollbar */
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;  /* smooth scroll on iOS */
+    scrollbar-width: thin;       /* Firefox */
+}
+
+
 
 .vitals {
     display: flex;
     gap: 32px;
     justify-content: center;
-    margin: 18px 0 10px 0;
+    margin: 32px 0 16px 0;
+    flex-wrap: wrap;
 }
-.height, .weight, .gender {
+
+.vital {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 160px; /* keeps label + pill aligned */
 }
+
 .vitalText {
-    color: #888;
+    color: #0f172a;           /* deep navy like your ref */
+    font-weight: 700;
     font-size: 0.95rem;
-    margin-bottom: 2px;
+    letter-spacing: 0.6px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;
 }
-.vitalBox {
-    background: #f5f5f5;
-    border-radius: 8px;
-    padding: 4px 14px;
-    font-weight: 500;
+
+/* Pill style for height/weight values */
+.vitalPill {
+    min-width: 150px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #f4f7fb;      /* soft neutral */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    color: #1f2937;
+    font-weight: 700;
     font-size: 1.05rem;
+    text-align: center;
 }
+
+/* Gender row container */
+.genderRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px; /* aligns with pill height visually */
+}
+
+/* Base gender icon box */
+.genderIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Male: filled light blue box with dark glyph */
+.genderMale {
+    background: #bfe7ff;       /* light blue fill */
+    border: 1px solid #bfe7ff; /* seamless edges */
+}
+.genderMale .genderGlyph {
+    color: #0f2b46;            /* dark navy glyph */
+}
+
+/* Female: white box with pink outline and glyph */
+.genderFemale {
+    background: #ffffff;
+    border: 2px solid #e46b7b; /* pink outline */
+}
+.genderFemale .genderGlyph {
+    color: #e46b7b;
+}
+
+/* Glyph size/weight */
+.genderGlyph {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.genderWithPercent {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.genderPercent {
+    font-weight: 700;
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+
 
 .stats {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px;
+    gap: 14px;
     justify-content: center;
-    margin: 18px 0 10px 0;
+    margin: 32px 0 16px 0;
 }
-.hp, .attack, .defense, .specialattack, .specialdefense, .speed {
-    display: flex;
+
+.statPill {
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    width: 74px;              /* adjust to taste */
+    padding: 10px 10px 12px;  /* more visual breathing room */
+    border-radius: 999px;     /* very rounded */
+    background: #f4f7fb;      /* neutral pill background */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.statsText {
-    color: #888;
-    font-size: 0.95rem;
-    margin-bottom: 2px;
+
+.statBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    min-width: 46px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #fff;
+    letter-spacing: 0.5px;
 }
-.statsBox {
-    background: #e3f2fd;
-    border-radius: 8px;
-    padding: 4px 14px;
-    font-weight: 500;
-    font-size: 1.05rem;
+
+.statValue {
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1f2937;           /* dark neutral */
+}
+
+.stat_hp .statBadge {
+    background: #e74a3b;      /* red */
+}
+.stat_hp {
+    background: rgba(231, 74, 59, 0.10);
+}
+.stat_attack .statBadge {
+    background: #f39c12;      /* orange */
+}
+.stat_attack {
+    background: rgba(243, 156, 18, 0.12);
+}
+.stat_defense .statBadge {
+    background: #f1c40f;      /* yellow */
+    color: #1f2937;
+}
+.stat_defense {
+    background: rgba(241, 196, 15, 0.14);
+}
+.stat_specialattack .statBadge {
+    background: #5dade2;      /* light blue */
+}
+.stat_specialattack {
+    background: rgba(93, 173, 226, 0.12);
+}
+.stat_specialdefense .statBadge {
+    background: #58d68d;      /* green */
+}
+.stat_specialdefense {
+    background: rgba(88, 214, 141, 0.12);
+}
+.stat_speed .statBadge {
+    background: #ff6b9f;      /* pink */
+}
+.stat_speed {
+    background: rgba(255, 107, 159, 0.12);
 }
 
 .evolutions {
+    margin: 32px 0 0 0;
+    width: 100%;
     display: flex;
-    gap: 24px;
     justify-content: center;
-    margin: 24px 0 0 0;
 }
-.evolutionOne, .evolutionTwo, .evolutionThree {
+.evolutionRow {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+}
+.evolutionCard {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: #fafbff; /* soft neutral */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    min-width: 120px;
+}
+.evolutionArrow {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #bfc9e7;
+    margin: 0 6px;
+    user-select: none;
+    font-weight: 700;
+}
+.evolutionCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.evolutionImg {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;      /* keep full artwork visible */
+    display: block;
+    image-rendering: -webkit-optimize-contrast; /* a little crisper on WebKit */
+    user-select: none;
+    -webkit-user-drag: none;
+    margin-bottom: 8px;
 }
 .evolutionName {
-    font-size: 1.05rem;
-    font-weight: 500;
-    margin-bottom: 4px;
-}
-.evolutionSprite {
-    width: 60px;
-    height: 60px;
-    background: #f5f5f5;
-    border-radius: 50%;
-    border: 2px solid #e0e0e0;
+    font-size: 0.98rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #0f172a;
 }
 
-/* Responsive styles */
-@media (max-width: 900px) {
-    .card {
-        width: 98vw;
-        max-width: 600px;
-        padding: 24px 8px;
-    }
-    .sprite {
-        width: 140px;
-        height: 140px;
-    }
-    .name {
-        font-size: 1.4rem;
-    }
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-@media (max-width: 600px) {
-    .card {
-        width: 99vw;
-        max-width: 98vw;
-        padding: 12px 2vw;
-        margin: 16px auto;
-    }
-    .sprite {
-        width: 90px;
-        height: 90px;
-    }
-    .name {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-    }
-    .types {
-        gap: 4px;
-        margin-bottom: 10px;
-    }
-    .type {
-        font-size: 0.85rem;
-        padding: 2px 8px;
-    }
-    .description {
-        font-size: 0.95rem;
-        margin: 10px 0;
-    }
-    .abilities {
-        margin: 10px 0 4px 0;
-    }
-    .ability {
-        font-size: 0.9rem;
-        padding: 2px 7px;
-    }
-    .vitals {
-        gap: 12px;
-        flex-direction: column;
-        align-items: center;
-    }
-    .vitalBox {
-        font-size: 0.95rem;
-        padding: 4px 10px;
-    }
-    .stats {
-        gap: 8px;
-    }
-    .statsBox {
-        font-size: 0.95rem;
-        padding: 4px 10px;
-    }
-    .evolutions {
-        gap: 10px;
-        flex-direction: column;
-        align-items: center;
-    }
-    .evolutionSprite {
-        width: 40px;
-        height: 40px;
-    }
-}
+
