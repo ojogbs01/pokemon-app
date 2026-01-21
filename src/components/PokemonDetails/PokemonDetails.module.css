@@ -9,6 +9,23 @@
   position: relative;
 }
 
+@media (max-width: 900px) {
+    .card {
+        width: 98vw;
+        margin: 24px auto;
+        border-radius: 18px;
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 100vw;
+        margin: 0;
+        border-radius: 0;
+        min-width: 0;
+    }
+}
+
 .hero {
   position: relative;
   background: linear-gradient(180deg, var(--hero), color-mix(in srgb, var(--hero) 78%, white));
@@ -16,6 +33,15 @@
   padding: 18px 20px 90px; /* extra bottom padding for sprite overlap */
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
+}
+
+@media (max-width: 600px) {
+    .hero {
+        min-height: 180px;
+        padding: 12px 8px 80px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
 }
 
 .heroTopRow {
@@ -86,6 +112,29 @@
     pointer-events: none;
 }
 
+@media (max-width: 900px) {
+    .heroSprite {
+        width: 220px;
+        height: 220px;
+        bottom: -40px;
+    }
+
+    .hero {
+        padding: 12px 8px 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .heroSprite {
+        width: 180px;
+        height: 180px;
+        bottom: -40px;
+    }
+    .hero {
+        padding: 12px 8px 120px;
+    }
+}
+
 .sheet {
     position: relative;
     margin-top: -24px;               /* pull sheet up under hero curve */
@@ -95,6 +144,25 @@
     padding: 48px 24px 24px;         /* top padding accounts for sprite overlap */
     min-height: 300px;
     z-index: 2;
+}
+
+@media (max-width: 900px) {
+    .sheet {
+        padding: 32px 10px 18px;
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sheet {
+        margin-top: -18px;
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
+        padding: 18px 4px 32px;
+        min-height: 0;
+        z-index: 2;
+    }
 }
 
 .description {
@@ -111,6 +179,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@media (max-width: 600px) {
+
+    .description {
+        margin: 32px 16px 64px 16px;
+    }
+
+    .abilities {
+        margin: 18px 0 32px 0;
+    }
 }
 
 .ability {
@@ -149,6 +228,13 @@
     scrollbar-width: thin;       /* Firefox */
 }
 
+@media (max-width: 600px) {
+    .abilityRow {
+        gap: 4px;
+        padding: 2px 2px 6px;
+    }
+}
+
 .vitals {
     display: flex;
     gap: 32px;
@@ -157,11 +243,35 @@
     flex-wrap: wrap;
 }
 
+@media (max-width: 900px) {
+    .vitals {
+        gap: 18px;
+        margin: 18px 0 32px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .vitals {
+        gap: 8px;
+        margin: 10px 0 18px 0;
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
 .vital {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-width: 160px; /* keeps label + pill aligned */
+}
+
+@media (max-width: 600px) {
+    .vital {
+        min-width: 0;
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
 .vitalText {
@@ -184,6 +294,15 @@
     font-weight: 700;
     font-size: 1.05rem;
     text-align: center;
+}
+
+@media (max-width: 600px) {
+    .vitalPill {
+        min-width: 0;
+        width: 50%;
+        padding: 10px 8px;
+        font-size: 0.98rem;
+    }
 }
 
 .genderRow {
@@ -246,6 +365,20 @@
     margin: 32px 0 64px 0;
 }
 
+@media (max-width: 900px) {
+    .stats {
+        gap: 8px;
+        margin: 18px 0 32px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .stats {
+        gap: 4px;
+        margin: 10px 0 18px 0;
+    }
+}
+
 .statPill {
     display: inline-flex;
     flex-direction: column;
@@ -256,6 +389,14 @@
     border-radius: 999px;     /* very rounded */
     background: #f4f7fb;      /* neutral pill background */
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 600px) {
+    .statPill {
+        width: 56px;
+        padding: 7px 6px 8px;
+        font-size: 0.92rem;
+    }
 }
 
 .statBadge {
@@ -323,12 +464,24 @@
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 600px) {
+    .evolutions {
+        margin: 10px 0 18px 0;
+    }
+}
 .evolutionRow {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    .evolutionRow {
+        gap: 8px;
+    }
 }
 .evolutionCard {
     display: flex;
@@ -340,6 +493,13 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     transition: transform 0.18s ease, box-shadow 0.18s ease;
     min-width: 120px;
+}
+
+@media (max-width: 600px) {
+    .evolutionCard {
+        min-width: 80px;
+        padding: 6px 4px;
+    }
 }
 .evolutionArrow {
     display: flex;
@@ -363,6 +523,14 @@
     user-select: none;
     -webkit-user-drag: none;
     margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+    .evolutionImg {
+        width: 54px;
+        height: 54px;
+        margin-bottom: 4px;
+    }
 }
 .evolutionName {
     font-size: 0.98rem;
