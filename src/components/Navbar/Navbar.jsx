@@ -2,8 +2,8 @@ import logo from "../../assets/images/logo.png";
 import filter from "../../assets/images/filter.png";
 import search from "../../assets/images/search.png";
 import styles from "./Navbar.module.css";
-import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Navbar() {
 	const [searchInput, setSearchInput] = useState("");

@@ -12,23 +12,36 @@ function HomePage() {
 			const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025");
 			const data = await res.json();
 
-			const index = data.results.map((p) => ({
-				name: p.name,
-				url: p.url,
-				id: p.url.split("/").filter(Boolean).pop(),
-			}));
+			const index = await Promise.all(
+				data.results.map(async (p) => {
+					try {
+						const details = await fetch(p.url).then((res) => res.json());
+						return {
+							name: p.name,
+							url: p.url,
+							id: details.id || p.url.split("/").filter(Boolean).pop(),
+							types: details.types ? details.types.map((t) => t.type.name) : [],
+						};
+					} catch (error) {
+						return {
+							name: p.name,
+							url: p.url,
+							id: p.url.split("/").filter(Boolean).pop(),
+							types: [],
+						};
+					}
+				}),
+			);
 
 			sessionStorage.setItem("storedPokemonList", JSON.stringify(index));
 			setStoredPokemonList(index);
-			console.log("Fetched all");
+			console.log("Fetched all with types");
 		}
 	};
 
 	useEffect(() => {
 		fetchAll();
 	}, []);
-
-	// need to fetch types too for stored pokemon list
 
 	return (
 		<>
