@@ -28,6 +28,8 @@ function HomePage() {
 		fetchAll();
 	}, []);
 
+	// need to fetch types too for stored pokemon list
+
 	return (
 		<>
 			<PokemonGrid />

@@ -2,21 +2,21 @@ import logo from "../../assets/images/logo.png";
 import filter from "../../assets/images/filter.png";
 import search from "../../assets/images/search.png";
 import styles from "./Navbar.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 function Navbar() {
 	const [searchInput, setSearchInput] = useState("");
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (searchInput) {
-			navigate(`/search/${searchInput}`);
+	const handleChange = (e) => {
+		const value = e.target.value;
+		setSearchInput(value);
+
+		if (value.trim()) {
+			navigate(`/search/${encodeURIComponent(value.trim())}`);
 		}
-		// else if (searchInput === "") {
-		//     navigate("/");
-		// }
-	}, [searchInput, navigate]);
+	};
 
 	return (
 		<header className={styles.navbar}>
@@ -32,10 +32,10 @@ function Navbar() {
 					<input
 						type="search"
 						name="query"
-						placeholder="Search Pokemon by name or number..."
+						placeholder="Search Pokemon..."
 						className={styles.input}
 						value={searchInput}
-						onChange={(e) => setSearchInput(e.target.value)}
+						onChange={handleChange}
 					/>
 					<img src={search} alt="Search icon" className={styles["search-icon"]} />
 				</div>

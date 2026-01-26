@@ -4,49 +4,55 @@ import styles from "./PokemonGrid.module.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function PokemonGrid() {
+function PokemonGrid({ pokemonList: externalList }) {
 	const [pokemonList, setPokemonList] = useState([]);
 	const [pokemonWithSprite, setPokemonWithSprite] = useState([]);
-
 	const limit = 20;
 	const [offset, setOffset] = useState(0);
 
-	const fetchPokemon = async (limit, offset) => {
-		try {
-			const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/?&limit=${limit}&offset=${offset}`);
-			const result = await reponse.json();
-			setPokemonList((prev) => [...prev, ...result.results]);
-			console.log("fetchPokemon: ", result.results); //data will update on next render so can't log it here
-		} catch (error) {
-			console.error("Error fetching data:", error);
+	useEffect(() => {
+		if (externalList) {
+			setPokemonWithSprite(externalList);
 		}
-	};
+	}, [externalList]);
 
 	useEffect(() => {
-		fetchPokemon(limit, offset);
-	}, [offset]);
-
-	const fetchTypes = async () => {
-		const updatedList = await Promise.all(
-			pokemonList.map(async (pokemon) => {
+		if (!externalList) {
+			const fetchPokemon = async (limit, offset) => {
 				try {
-					const response = await fetch(pokemon.url);
-					const result = await response.json();
-					// Copilot
-					const types = result.types.map((t) => t.type.name); // ["grass", "poison"]
-					return { ...pokemon, types };
+					const reponse = await fetch(`https://pokeapi.co/api/v2/pokemon/?&limit=${limit}&offset=${offset}`);
+					const result = await reponse.json();
+					setPokemonList((prev) => [...prev, ...result.results]);
+					console.log("fetchPokemon: ", result.results);
 				} catch (error) {
-					console.error("Error fetching types for", pokemon.name, error);
-					return { ...pokemon, types: [] };
+					console.error("Error fetching data:", error);
 				}
-			}),
-		);
-		setPokemonWithSprite(updatedList);
-	};
+			};
+			fetchPokemon(limit, offset);
+		}
+	}, [offset, externalList]);
 
 	useEffect(() => {
-		if (pokemonList.length > 0) fetchTypes();
-	}, [pokemonList]);
+		if (!externalList && pokemonList.length > 0) {
+			const fetchTypes = async () => {
+				const updatedList = await Promise.all(
+					pokemonList.map(async (pokemon) => {
+						try {
+							const response = await fetch(pokemon.url);
+							const result = await response.json();
+							const types = result.types.map((t) => t.type.name);
+							return { ...pokemon, types };
+						} catch (error) {
+							console.error("Error fetching types for", pokemon.name, error);
+							return { ...pokemon, types: [] };
+						}
+					}),
+				);
+				setPokemonWithSprite(updatedList);
+			};
+			fetchTypes();
+		}
+	}, [pokemonList, externalList]);
 
 	const loadMore = () => {
 		setOffset(limit + offset);
@@ -55,13 +61,17 @@ function PokemonGrid() {
 	return (
 		<>
 			<main className={styles.main}>
-				{pokemonWithSprite.map((pokemon, index) => (
-					<Link to={`/pokemon/${index + 1}`} className={styles.cardLink} key={index + 1}>
-						<PokemonCard name={pokemon.name} key={index} id={index + 1} types={pokemon.types} />
+				{(pokemonWithSprite || []).map((pokemon, index) => (
+					<Link
+						to={`/pokemon/${pokemon.id || index + 1}`}
+						className={styles.cardLink}
+						key={pokemon.id || index + 1}
+					>
+						<PokemonCard name={pokemon.name} id={pokemon.id || index + 1} types={pokemon.types} />
 					</Link>
 				))}
 			</main>
-			<LoadMoreButton onClick={loadMore} />
+			{!externalList && <LoadMoreButton onClick={loadMore} />}
 		</>
 	);
 }

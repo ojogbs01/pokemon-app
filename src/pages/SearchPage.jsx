@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-import PokemonCard from "../components/PokemonCard/PokemonCard";
+import PokemonGrid from "../components/PokemonGrid/PokemonGrid";
 
 function SearchPage() {
 	const { searchInput } = useParams();
@@ -10,11 +9,7 @@ function SearchPage() {
 
 	return (
 		<>
-			<ul>
-				{results.map((item) => (
-					<PokemonCard name={item.name} key={item.id} id={item.id} />
-				))}
-			</ul>
+			<PokemonGrid pokemonList={results} />
 		</>
 	);
 }
