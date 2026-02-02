@@ -1,10 +1,10 @@
-import PokemonCard from "./PokemonCard";
+import Footer from "./Footer";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 
-describe("PokemonCard", () => {
+describe("Footer", () => {
 	it("dummy test that always passes", () => {
 		expect(true).toBe(true);
 	});
