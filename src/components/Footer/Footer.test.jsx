@@ -6,7 +6,7 @@ import { describe, it, expect } from "vitest";
 describe("Footer", () => {
 	it("renders the my name name", () => {
 		render(<Footer />);
-		expect(screen.getByText(/Stephen Ojogbede/i)).toBeInTheDocument();
+		expect(screen.getByText("Stephen Ojogbede")).toBeInTheDocument();
 	});
 
 	it("renders the GitHub link with correct href", () => {
@@ -19,6 +19,6 @@ describe("Footer", () => {
 
 	it("renders the copyright", () => {
 		render(<Footer />);
-		expect(screen.getByText(/© 2025 Pokédex. All rights reserved./i)).toBeInTheDocument();
+		expect(screen.getByText("© 2025 Pokédex. All rights reserved.")).toBeInTheDocument();
 	});
 });
