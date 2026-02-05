@@ -8,12 +8,12 @@ import SearchPage from "./pages/SearchPage";
 function App() {
 	return (
 		<>
-			<Router>
+			<Router basename="/pokemon-app">
 				<Navbar />
 				<Routes>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/pokemon/:id" element={<PokemonPage />} />
-					<Route path="/search/:searchInput" element={<SearchPage />} />
+					<Route index element={<HomePage />} />
+					<Route path="pokemon/:id" element={<PokemonPage />} />
+					<Route path="search/:searchInput" element={<SearchPage />} />
 					<Route path="*" element={<h1>Page Not Found!</h1>} />
 				</Routes>
 				<Footer />
